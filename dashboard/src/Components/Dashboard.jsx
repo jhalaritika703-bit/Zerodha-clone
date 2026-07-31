@@ -15,7 +15,9 @@ const Dashboard = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      window.location.href = "/login";
+      // Redirect to the LOGIN app
+      window.location.href =
+        "https://zerodha-clone-gamma.vercel.app/login";
     }
   }, []);
 
