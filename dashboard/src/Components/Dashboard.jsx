@@ -11,16 +11,25 @@ import WatchList from "./WatchList";
 import { GeneralContextProvider } from "./GeneralContext";
 
 const Dashboard = () => {
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+ useEffect(() => {
+  // Get token from URL (sent by login app)
+  const params = new URLSearchParams(window.location.search);
+  const tokenFromUrl = params.get("token");
 
-    if (!token) {
-      // Redirect to the LOGIN app
-      window.location.href =
-        "https://zerodha-clone-gamma.vercel.app/login";
-    }
-  }, []);
+  if (tokenFromUrl) {
+    // Save it in the dashboard app's localStorage
+    localStorage.setItem("token", tokenFromUrl);
 
+    // Remove the token from the URL
+    window.history.replaceState({}, "", window.location.pathname);
+  }
+
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    window.location.href = "https://zerodha-clone-gamma.vercel.app/login";
+  }
+}, []);
   return (
     <div className="dashboard-container">
       <GeneralContextProvider>

@@ -12,7 +12,7 @@ function Login() {
     const token = localStorage.getItem("token");
 
     if (token) {
-      window.location.href = "https://zerodha-clone-a1sx.vercel.app/";
+      window.location.href = `https://zerodha-clone-a1sx.vercel.app/?token=${token}`;
     }
   }, []);
 
@@ -32,8 +32,10 @@ function Login() {
         user
       );
 
-      // Save JWT token
-      localStorage.setItem("token", res.data.token);
+      const token = res.data.token;
+
+      // Save token in frontend app
+      localStorage.setItem("token", token);
 
       alert("Login Successful!");
 
@@ -43,8 +45,8 @@ function Login() {
         password: "",
       });
 
-      // Redirect to Dashboard
-      window.location.href = "https://zerodha-clone-a1sx.vercel.app/";
+      // Redirect to dashboard with token
+      window.location.href = `https://zerodha-clone-a1sx.vercel.app/?token=${token}`;
     } catch (err) {
       console.error(err);
       alert(err.response?.data?.error || "Login Failed");
