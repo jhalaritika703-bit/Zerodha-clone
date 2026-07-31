@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function SignUp() {
@@ -7,6 +7,15 @@ function SignUp() {
     email: "",
     password: "",
   });
+
+  // Redirect if already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      window.location.href = `https://zerodha-clone-a1sx.vercel.app/?token=${token}`;
+    }
+  }, []);
 
   const handleChange = (e) => {
     setUser({
@@ -24,10 +33,12 @@ function SignUp() {
         user
       );
 
-      alert("Signup Successful!");
+      const token = res.data.token;
 
       // Save JWT token
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("token", token);
+
+      alert("Signup Successful!");
 
       // Clear form
       setUser({
@@ -36,8 +47,8 @@ function SignUp() {
         password: "",
       });
 
-      // Redirect to deployed frontend
-      window.location.href = "https://zerodha-clone-gamma.vercel.app/";
+      // Redirect to Dashboard with token
+      window.location.href = `https://zerodha-clone-a1sx.vercel.app/?token=${token}`;
     } catch (err) {
       console.error(err);
       alert(err.response?.data?.error || "Signup Failed");
