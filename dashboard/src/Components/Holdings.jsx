@@ -6,8 +6,7 @@ const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-  axios
-    .get("http://localhost:3000/allHoldings")
+ axios.get("https://zerodha-clone-8f4z.onrender.com/allHoldings")
     .then((res) => {
       console.log("API Response:", res.data);
       console.log("Type:", typeof res.data);

@@ -7,12 +7,12 @@ function Login() {
     password: "",
   });
 
-  // If already logged in, redirect to dashboard
+  // Redirect if already logged in
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      window.location.href = "http://localhost:5173";
+      window.location.href = "https://zerodha-clone-gamma.vercel.app/";
     }
   }, []);
 
@@ -28,24 +28,22 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        "https://zerodha-clone-8f4z.onrender.com/api/auth/login",
         user
       );
 
-      // Save JWT token
       localStorage.setItem("token", res.data.token);
 
       alert("Login Successful!");
 
-      // Clear form
       setUser({
         email: "",
         password: "",
       });
 
-      // Redirect to Dashboard
-      window.location.href = "http://localhost:5173";
+      window.location.href = "https://zerodha-clone-gamma.vercel.app/";
     } catch (err) {
+      console.error(err);
       alert(err.response?.data?.error || "Login Failed");
     }
   };

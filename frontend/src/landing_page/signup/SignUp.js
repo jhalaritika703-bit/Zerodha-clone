@@ -16,33 +16,33 @@ function SignUp() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await axios.post(
-      "http://localhost:3000/api/auth/signup",
-      user
-    );
+    try {
+      const res = await axios.post(
+        "https://zerodha-clone-8f4z.onrender.com/api/auth/signup",
+        user
+      );
 
-    alert("Signup Successful!");
+      alert("Signup Successful!");
 
-    // Save JWT token
-    localStorage.setItem("token", res.data.token);
+      // Save JWT token
+      localStorage.setItem("token", res.data.token);
 
-    // Clear form
-    setUser({
-      username: "",
-      email: "",
-      password: "",
-    });
+      // Clear form
+      setUser({
+        username: "",
+        email: "",
+        password: "",
+      });
 
-    // Redirect to Dashboard project
-   localStorage.setItem("token", res.data.token);
-window.location.href = "http://localhost:5173";
-  } catch (err) {
-    alert(err.response?.data?.error || "Signup Failed");
-  }
-};
+      // Redirect to deployed frontend
+      window.location.href = "https://zerodha-clone-gamma.vercel.app/";
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.error || "Signup Failed");
+    }
+  };
 
   return (
     <div className="container mt-5">
